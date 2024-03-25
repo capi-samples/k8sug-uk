@@ -1,0 +1,10 @@
+apiVersion: fleet.cattle.io/v1alpha1
+kind: Cluster
+metadata:
+  name: docker-demo
+  namespace: default
+  labels:
+    demo: "true"
+    env: dev
+spec:
+  kubeConfigSecret: docker-demo-kubeconfig

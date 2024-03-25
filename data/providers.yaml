@@ -1,0 +1,47 @@
+apiVersion: operator.cluster.x-k8s.io/v1alpha2
+kind: CoreProvider
+metadata:
+  name: cluster-api
+  namespace: default
+spec:
+  version: v1.6.2
+  manager:
+    featureGates:
+      ClusterResourceSet: true
+      ClusterTopology: true
+---
+apiVersion: operator.cluster.x-k8s.io/v1alpha2
+kind: InfrastructureProvider
+metadata:
+  name: docker
+  namespace: default
+spec:
+  version: v1.6.2
+  manager:
+    featureGates:
+      ClusterResourceSet: true
+      ClusterTopology: true
+---
+apiVersion: operator.cluster.x-k8s.io/v1alpha2
+kind: ControlPlaneProvider
+metadata:
+  name: kubeadm
+  namespace: default
+spec:
+  version: v1.6.2
+  manager:
+    featureGates:
+      ClusterResourceSet: true
+      ClusterTopology: true
+---
+apiVersion: operator.cluster.x-k8s.io/v1alpha2
+kind: BootstrapProvider
+metadata:
+  name: kubeadm
+  namespace: default
+spec:
+  version: v1.6.2
+  manager:
+    featureGates:
+      ClusterResourceSet: true
+      ClusterTopology: true
