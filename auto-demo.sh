@@ -6,10 +6,14 @@
 TYPE_SPEED=40
 DEMO_PROMPT="${GREEN}➜ ${CYAN}\W ${COLOR_RESET}"
 
+# Check to see if the repo exists already
+if [ -d ./test ]; then
+  echo "The test repo directory exists already. Delete it and start again"
+  exit 1
+fi
+
 # Clear the screen before starting
 clear
-
-pe "echo 'Create the management cluster'"
 
 export LOCAL_IP=$(ip -4 -j route list default | jq -r .[0].prefsrc)
 
@@ -28,7 +32,7 @@ networking:
 EOF
 
 # Create cluster for the management cluster
-kind create cluster --config kind.yaml
+pe "kind create cluster --config kind.yaml"
 kubectl rollout status deployment coredns -n kube-system --timeout=90s
 
 pe "clear"

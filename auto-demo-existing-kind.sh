@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# Check to see if the repo exists already
+# NOTE: this is a duplicate in case this script is run directly
+if [ -d ./test ]; then
+  echo "The test repo directory exists already. Delete it and start again"
+  exit 1
+fi
+
 # Create keys for admin user
 # mkdir keys
 # ssh-keygen -f keys/admin
@@ -64,7 +71,7 @@ spec:
   clientSecretName: basic-auth-secret
 EOF
 
-pe "nvim repo.yaml"
+pe "$EDITOR repo.yaml"
 pe "kubectl apply -n fleet-local -f repo.yaml"
 
 # Install CAPI operator
@@ -137,14 +144,14 @@ pe "git push"
 
 # scale the workers to 3
 pe "echo \"Scale workers to 3\""
-pe "nvim clusters/cluster.yaml"
+pe "$EDITOR clusters/cluster.yaml"
 pei "git add ."
 pei "git commit -m \"Scale workers to 3\""
 pe "git push"
 
 # Upgrade the control plane to v1.28.6
 pe "echo \"Upgrade Control Plane v1.28.6\""
-pe "nvim clusters/cluster.yaml"
+pe "$EDITOR clusters/cluster.yaml"
 pei "git add ."
 pei "git commit -m \"Upgrade k8s version\""
 pe "git push"
